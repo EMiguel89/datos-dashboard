@@ -17,7 +17,7 @@ jobs:
       - name: Vaciar tabla en Supabase
         run: |
           curl -X DELETE "https://edcnjdupwvjxutlaemdy.supabase.co/rest/v1/registros?id=gte.0" \
-            -H "apikey: edcnjdupwvjxutlaemdy" \
+            -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVkY25qZHVwd3ZqeHV0bGFlbWR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTYxNjAsImV4cCI6MjA5MTM5MjE2MH0.ZDt-qdWyMGrWHrElnG_wmA9_pnMKmsqBN_kLRd2vlnk" \
             -H "Authorization: Bearer edcnjdupwvjxutlaemdy" \
             -H "Content-Type: application/json" \
             -H "Prefer: return=minimal"
