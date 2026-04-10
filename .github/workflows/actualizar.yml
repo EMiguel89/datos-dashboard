@@ -1,24 +1,18 @@
 name: Actualizar Supabase
 
 on:
-  schedule:
-    - cron: '0 * * * *'
+  repository_dispatch:
+    types: [actualizar-datos]
   workflow_dispatch:
 
 jobs:
   actualizar:
     runs-on: ubuntu-latest
     steps:
-      - name: Descargar JSON de OneDrive
+      - name: Guardar JSON
         run: |
-          curl -L "https://adslhouse-my.sharepoint.com/:u:/p/efarfan/IQCusPJ4g4fFT7AzRybfEWxjAZHeeW0cU6-ZcYxhQUh-T4k?e=Pruk5G&download=1" -o datos.json
+          echo '${{ toJson(github.event.client_payload) }}' > datos.json
           cat datos.json
-
-      - name: Verificar secret
-        env:
-          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-        run: |
-          echo "KEY length: ${#SUPABASE_KEY}"
 
       - name: Vaciar tabla en Supabase
         env:
