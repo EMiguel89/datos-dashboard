@@ -11,8 +11,9 @@ jobs:
     steps:
       - name: Guardar JSON
         run: |
-          echo '${{ toJson(github.event.client_payload) }}' > datos.json
-          cat datos.json
+          echo '${{ toJson(github.event.client_payload.datos) }}' > datos.json
+          echo "Registros guardados:"
+          cat datos.json | python3 -c "import json,sys; data=json.load(sys.stdin); print(len(data), 'registros')"
 
       - name: Vaciar tabla en Supabase
         env:
