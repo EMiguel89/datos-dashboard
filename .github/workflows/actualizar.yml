@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Descargar JSON de OneDrive
         run: |
-          curl -L "https://adslhouse-my.sharepoint.com/:u:/p/efarfan/IQCusPJ4g4fFT7AzRybfEWxjAZHeeW0cU6-ZcYxhQUh-T4k?e=Pruk5G&download=1" -o datos.json
+          curl -L "https://adslhouse-my.sharepoint.com/personal/efarfan_adslhouse_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fefarfan%5Fadslhouse%5Fcom%2FDocuments%2FDocumentos%2FPruebas%20reporte%20col%2Fdatos%2Ejson&parent=%2Fpersonal%2Fefarfan%5Fadslhouse%5Fcom%2FDocuments%2FDocumentos%2FPruebas%20reporte%20col&ga=1" -o datos.json
           cat datos.json
 
       - name: Vaciar tabla en Supabase
