@@ -13,14 +13,35 @@ jobs:
         run: |
           curl -L "https://adslhouse-my.sharepoint.com/personal/efarfan_adslhouse_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fefarfan%5Fadslhouse%5Fcom%2FDocuments%2FDocumentos%2FPruebas%20reporte%20col%2Fdatos%2Ejson&parent=%2Fpersonal%2Fefarfan%5Fadslhouse%5Fcom%2FDocuments%2FDocumentos%2FPruebas%20reporte%20col&ga=1" -o datos.json
           cat datos.json
-
-      - name: Vaciar tabla en Supabase
+      - name: Verificar secret
         run: |
-          curl -X DELETE "https://edcnjdupwvjxutlaemdy.supabase.co/rest/v1/registros?id=gte.0" \
-            -H "apikey: ${{ secrets.SUPABASE_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" \
+          echo "URL: ${{ secrets.SUPABASE_URL }}"
+          echo "KEY length: ${#SUPABASE_KEY}"
+        env:
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+      
+      - name: Vaciar tabla en Supabase
+        env:
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        run: |
+          curl -X DELETE "${SUPABASE_URL}/rest/v1/registros?id=gte.0" \
+            -H "apikey: ${SUPABASE_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_KEY}" \
             -H "Content-Type: application/json" \
             -H "Prefer: return=minimal"
+
+      - name: Insertar datos en Supabase
+        env:
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        run: |
+          curl -X POST "${SUPABASE_URL}/rest/v1/registros" \
+            -H "apikey: ${SUPABASE_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_KEY}" \
+            -H "Content-Type: application/json" \
+            -H "Prefer: return=minimal" \
+            -d @datos.json
 
       - name: Insertar datos en Supabase
         run: |
